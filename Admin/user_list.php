@@ -1,3 +1,19 @@
+<?php
+    include('db.php');
+    if(isset($_POST['save'])){
+        $uname = $_POST['uname'];
+        $uemail = $_POST['uemail'];
+        $upass = $_POST['upass'];
+        $role = "admin";
+        $sql = "INSERT INTO users (user_name, user_mail, user_pass , user_role) VALUES ('$uname', '$uemail', '$upass' , '$role')";
+        $result = mysqli_query($conn, $sql);
+
+    }
+
+?>
+
+
+
 <?php include('head.php')?>
     <body class="sb-nav-fixed">
     <?php include('top_nav.php')?>
@@ -54,19 +70,28 @@
                                     <th>Action</th>
                                 </tr>
                             </tfoot>
+                            <?php
+                                $sql = "SELECT * FROM users";
+                                $result = mysqli_query($conn, $sql);
+                                $count = mysqli_num_rows($result);
+                                $i = 1;
+                                while($row = mysqli_fetch_assoc($result)){
+                                
+                           ?>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>Jonathin</td>
-                                    <td>jon232@gmail.com</td>
-                                    <td>User</td>
-                                    <td>password32112</td>
-                                    <td><a href="user_edit.html" type="submit" class="btn btn-sm btn-outline-success">Edit</a>
-                                        <a href="user_delete.html" type="submit" class="btn btn-sm btn-outline-danger">Delete</a>
+                                    <td><?php echo $i++ ?></td>
+                                    <td><?php echo $row['user_id'] ?></td>
+                                    <td><?php echo $row['user_name'] ?></td>
+                                    <td><?php echo $row['user_mail'] ?></td>
+                                    <td><?php echo $row['user_role'] ?></td>
+                                    <td><?php echo $row['user_pass'] ?></td>
+                                    <td><a href="user_edit.php?id=<?php echo $row['user_id'] ?>" type="submit" class="btn btn-sm btn-outline-success">Edit</a>
+                                        <a href="user_del.php?id=<?php echo $row['user_id'] ?>" type="submit" class="btn btn-sm btn-outline-danger">Delete</a>
                                     </td>
                                 </tr>
                             </tbody>
+                            <?php } ?>
                            
                           
                         </table>

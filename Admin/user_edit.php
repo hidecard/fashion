@@ -1,3 +1,23 @@
+<?php
+include('db.php');  
+if(isset($_POST['save'])){
+    $uid = $_POST['uid'];
+    $uname = $_POST['uname'];
+    $uemail = $_POST['uemail'];
+    $upass = $_POST['upass'];
+    $sql = "UPDATE users SET user_name='$uname', user_mail='$uemail', user_pass='$upass' WHERE user_id='$uid'";
+    $result = mysqli_query($conn, $sql);
+}
+if(isset($_GET['uid'])){
+    $uid = $_GET['uid'];
+    $sql = "SELECT * FROM users WHERE user_id='$uid'";
+    $result = mysqli_query($conn, $sql);
+    $row = mysqli_fetch_assoc($result);
+    $uname = $row['user_name'];
+    $uemail = $row['user_mail'];
+    $upass = $row['user_pass'];
+}
+?>
 <?php include('head.php')?>
     <body class="sb-nav-fixed">
     <?php include('top_nav.php')?>
@@ -9,7 +29,6 @@
                 <main>
                     <div class="container-fluid px-4">
                         <h3 class="mt-4">User Lists</h3>
-
         <form action="" class="p-3 mt-5" method="post">
             <div class="mb-3 row">
                 <label for="inputPassword" class="col-sm-2 col-form-label">User ID</label>
@@ -18,7 +37,7 @@
                 </div>
             </div>    
             <div class="mb-3 row">
-                <label for="inputPassword" class="col-sm-2 col-form-label">User Name</label>
+                <label for="inputPassword" class="col-sm-2 col-form-label"><]NAME</label>
                 <div class="col-sm-10">
                     <input type="text" value="" name="uname" class="form-control" >
                 </div>
